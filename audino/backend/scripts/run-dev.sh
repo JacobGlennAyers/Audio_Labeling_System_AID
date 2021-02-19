@@ -22,9 +22,10 @@ echo "Connecting to database"
 python3 "${app}/scripts/wait_for_database.py"
 
 echo "Applying new migrations"
-cd "${app}" && flask db stamp d9bcb2994190 || true
+# cd "${app}" && flask db stamp d9bcb2994190 || true
 cd "${app}" && flask db migrate || true
-cd "${app}" && flask db upgrade || true
+# cd "${app}" && flask db init || true
+cd "${app}" && flask db upgrade head || true
 
 if [[ -n "${ADMIN_PASSWORD}" ]] && [[ -n "${ADMIN_USERNAME}" ]]; then
   python3 "${app}/scripts/create_admin_user.py" \
